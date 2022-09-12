@@ -3,7 +3,7 @@ import {
     getFirestore,
     doc,
     setDoc,
-    getDoc
+    getDoc, collection
 } from 'firebase/firestore'
 
 const firebaseConfig = {
@@ -19,23 +19,4 @@ const firebaseConfig = {
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 export const db = getFirestore(app)
-
-// export const createTodoDocument = async (todo, additionalInformation = {}) => {
-//     if (!todo) return
-//     const todoDocRef = doc(db, 'todos', todo.uid)
-//     const todoSnapshot = await getDoc(todoDocRef)
-//
-//     if (!todoSnapshot.exists()) {
-//         const value = todo
-//
-//         try {
-//             await setDoc(todoDocRef, {
-//                 value,
-//                 ...additionalInformation
-//             })
-//         } catch (error) {
-//             console.log('error', error.message)
-//         }
-//     }
-//     return todoDocRef
-// }
+export const todoRef = collection(db, 'todos')

@@ -1,8 +1,8 @@
 import {Fragment, useEffect, useState} from "react";
 import './header.style.scss'
 import TodoPage from "../todo-page/todo-page.component";
-import {db} from "../../utils/firebase.utils";
-import {collection, addDoc, Timestamp, getDocs} from "firebase/firestore";
+import {db, todoRef} from "../../utils/firebase.utils";
+import {collection, addDoc, Timestamp, getDocs, orderBy, query} from "firebase/firestore";
 
 
 export const Header = () => {
@@ -10,14 +10,15 @@ export const Header = () => {
     const [formField, setFormField] = useState('')
     const [todos, setTodos] = useState([])
     const [loader, setLoader] = useState(true)
-    const todoRef = collection(db, 'todos')
 
+    const querySnapshot = query(collection(db, 'todos'), orderBy('Timestamp'))
 
     const getTodo = async () => {
-        const todoSnapshot = await getDocs(collection(db, 'todos'))
+        const todoSnapshot = await getDocs(querySnapshot)
         const items = []
         todoSnapshot.forEach((doc) => {
-            items.push(doc.data().ToDo)
+            items.push(doc.data())
+
         })
         setTodos(items)
         setLoader(false)
@@ -28,14 +29,13 @@ export const Header = () => {
     }, [])
 
     const addTodo = (e) => {
+        getTodo()
         e.preventDefault()
-
         addDoc(todoRef, {
             ToDo: formField,
-            TimeStamp: Timestamp.now()
+            Timestamp: Timestamp.now(),
+            ID: (Math.random() * 1000).toFixed(0)
         })
-
-        setTodos([...todos, formField])
         setFormField('')
     }
 
@@ -55,8 +55,6 @@ export const Header = () => {
                 todo={todos}
             />
         </Fragment>
-
-
     )
 }
 
