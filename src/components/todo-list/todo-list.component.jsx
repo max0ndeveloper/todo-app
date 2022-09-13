@@ -1,23 +1,21 @@
-import {collection, updateDoc, getDocs} from 'firebase/firestore'
-import {db} from "../../utils/firebase.utils";
+import {collection, deleteDoc, doc} from 'firebase/firestore'
+import {db, todoRef} from "../../utils/firebase.utils";
 
-const TodoList = (todos) => {
-
+const TodoList = (todos, getToDo) => {
 
     return (
         <div className="todo-container">
             <ul className="todo-list">
             {
-                todos.item.map((todo, id) => (
+                todos.item.map((item, id) => (
                     <li className="todo" key={id}>
-                        {todo.ToDo}
-                        <button>
+                        {item.todo.ToDo}
+                        <button onClick={async () => await deleteDoc(doc(db, 'todos', item.id))}>
                             remove
                         </button>
                     </li>
                 ))
             }
-
             </ul>
         </div>
     )
