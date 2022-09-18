@@ -1,0 +1,27 @@
+.container {
+  max-width: 354px;
+  margin: 0 auto;
+  padding: 0 10px;
+  font-family: 'Poppins', sans-serif;
+}
+
+.header-text {
+  text-align: center;
+}
+
+
+
+.form-field {
+  text-align: center;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: 1fr;
+  grid-column-gap: 0;
+  grid-row-gap: 0;
+
+}
+
+
+.form-field__btn {
+  margin-top: 12px;
+}
