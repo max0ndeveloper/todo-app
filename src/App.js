@@ -1,11 +1,17 @@
 import Header from "./components/header/header.component";
 import './App.css'
-import {Routes, Route} from 'react-router-dom'
+import AddTodo from "./components/add-todo/add-todo.component";
 import TodoPage from "./components/todo-page/todo-page.component";
 
+
 function App() {
+
   return (
-      <Header/>
+      <div className="container">
+        <Header/>
+        <AddTodo/>
+        <TodoPage/>
+      </div>
   );
 }
 
